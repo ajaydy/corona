@@ -1,0 +1,27 @@
+[app]
+name = ""
+version = ""
+host = ""
+port = ""
+environment = ""
+shutdown_timeout =" "
+read_timeout = ""
+write_timeout = ""
+
+
+[database]
+host = ""
+port = ""
+name = ""
+username = ""
+password = ""
+sslmode = ""
+
+
+[cron]
+    [[cron.task]]
+    name = ""
+    interval = "1"
+    unit = "day"
+    time = ""
+
