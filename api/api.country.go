@@ -10,11 +10,6 @@ import (
 )
 
 type (
-	Country struct {
-		ContinentName string `json:"continent_name"`
-		Name          string `json:"name"`
-		Code          string `json:"code"`
-	}
 	CountryModule struct {
 		db     *sql.DB
 		logger *helpers.Logger
@@ -23,6 +18,12 @@ type (
 
 	CountryDetailParam struct {
 		Id uuid.UUID `json:"id"`
+	}
+
+	Country struct {
+		ContinentName string `json:"continent_name"`
+		Name          string `json:"name"`
+		Code          string `json:"code"`
 	}
 
 	CountryAddParam struct {
