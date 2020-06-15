@@ -19,6 +19,7 @@ import (
 	"context"
 	"corona/api"
 	"corona/helpers"
+	"corona/middleware"
 	"corona/routers"
 	"corona/scrapper"
 	"database/sql"
@@ -50,6 +51,7 @@ var rootCmd = &cobra.Command{
 		api.Init(dbPool, logger)
 		helpers.Init(logger)
 		routers.Init(dbPool, logger)
+		middleware.Init(dbPool, logger)
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		router := routers.InitHandlers()

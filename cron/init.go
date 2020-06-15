@@ -21,7 +21,8 @@ type (
 )
 
 var mapTasks = map[string]TaskRunner{
-	cronCasesUpdate: &TaskCasesUpdate{},
+	cronCasesUpdate:   &TaskCasesUpdate{},
+	cronRequestUpdate: &TaskRequestUpdate{},
 }
 
 var (

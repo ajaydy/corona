@@ -8,11 +8,14 @@ require (
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.2.4 // indirect
 	github.com/antchfx/xpath v1.1.8 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-gota/gota v0.10.1
 	github.com/go-playground/validator/v10 v10.3.0
+	github.com/go-redis/redis/v8 v8.0.0-beta.4 // indirect
 	github.com/gocolly/colly/v2 v2.0.1
 	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/gomodule/redigo v1.8.2
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/schema v1.1.0
 	github.com/jasonlvhit/gocron v0.0.0-20200423141508-ab84337f7963
@@ -30,6 +33,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.0
+	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9
 	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7 // indirect
 	golang.org/x/sys v0.0.0-20200523222454-059865788121 // indirect
 	gonum.org/v1/gonum v0.7.0 // indirect

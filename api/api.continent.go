@@ -20,9 +20,13 @@ type (
 		Id uuid.UUID `json:"id"`
 	}
 
-	ContinentAddParam struct {
+	Continent struct {
 		Name string `json:"name"`
 		Code string `json:"code"`
+	}
+
+	ContinentAddParam struct {
+		Continent []Continent `json:"continent"`
 	}
 )
 
@@ -66,18 +70,26 @@ func (s ContinentModule) Detail(ctx context.Context, param ContinentDetailParam)
 
 func (s ContinentModule) Add(ctx context.Context, param ContinentAddParam) (interface{}, *helpers.Error) {
 
-	continent := models.ContinentModel{
-		Name:      param.Name,
-		Code:      param.Code,
-		CreatedBy: uuid.NewV4(),
+	var continentResponses []models.ContinentResponse
+
+	for _, continent := range param.Continent {
+
+		continent := models.ContinentModel{
+			Name:      continent.Name,
+			Code:      continent.Code,
+			CreatedBy: uuid.NewV4(),
+		}
+
+		err := continent.Insert(ctx, s.db)
+		if err != nil {
+			return nil, helpers.ErrorWrap(err, s.name, "Add/Insert", helpers.InternalServerError,
+				http.StatusInternalServerError)
+		}
+
+		continentResponses = append(continentResponses, continent.Response())
+
 	}
 
-	err := continent.Insert(ctx, s.db)
-	if err != nil {
-		return nil, helpers.ErrorWrap(err, s.name, "Add/Insert", helpers.InternalServerError,
-			http.StatusInternalServerError)
-	}
-
-	return continent.Response(), nil
+	return continentResponses, nil
 
 }

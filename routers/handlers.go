@@ -2,6 +2,7 @@ package routers
 
 import (
 	"corona/helpers"
+	"corona/middleware"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -38,14 +39,15 @@ func InitHandlers() *mux.Router {
 
 	apiV1 := r.PathPrefix("/api/v1").Subrouter()
 
+	apiV1.Handle("/coronavirus", middleware.TokenMiddleware(middleware.RateLimitMiddleware(
+		HandlerFunc(HandlerCoronaList)))).Methods(http.MethodGet)
+	apiV1.Handle("/coronavirus/continents/{continent}", middleware.TokenMiddleware(middleware.RateLimitMiddleware(
+		HandlerFunc(HandlerCoronaByContinent)))).Methods(http.MethodGet)
+	apiV1.Handle("/coronavirus/countries/{country}", middleware.TokenMiddleware(middleware.RateLimitMiddleware(
+		HandlerFunc(HandlerCoronaByCountry)))).Methods(http.MethodGet)
+
 	apiV1.Handle("/coronavirus",
 		HandlerFunc(HandlerCoronaAdd)).Methods(http.MethodPost)
-	apiV1.Handle("/coronavirus",
-		HandlerFunc(HandlerCoronaList)).Methods(http.MethodGet)
-	apiV1.Handle("/coronavirus/continents/{continent}",
-		HandlerFunc(HandlerCoronaByContinent)).Methods(http.MethodGet)
-	apiV1.Handle("/coronavirus/countries/{country}",
-		HandlerFunc(HandlerCoronaByCountry)).Methods(http.MethodGet)
 
 	apiV1.Handle("/countries",
 		HandlerFunc(HandlerCountryList)).Methods(http.MethodGet)
@@ -58,6 +60,26 @@ func InitHandlers() *mux.Router {
 		HandlerFunc(HandlerContinentList)).Methods(http.MethodGet)
 	apiV1.Handle("/continents/{id}",
 		HandlerFunc(HandlerContinentDetail)).Methods(http.MethodGet)
+
+	apiV1.Handle("/subscriptions",
+		HandlerFunc(HandlerSubscriptionList)).Methods(http.MethodGet)
+	apiV1.Handle("/subscriptions/{id}",
+		HandlerFunc(HandlerSubscriptionDetail)).Methods(http.MethodGet)
+
+	apiV1.Handle("/rate_limits",
+		HandlerFunc(HandlerRateLimitList)).Methods(http.MethodGet)
+	apiV1.Handle("/rate_limits/{id}",
+		HandlerFunc(HandlerRateLimitDetail)).Methods(http.MethodGet)
+
+	apiV1.Handle("/tokens",
+		HandlerFunc(HandlerTokenList)).Methods(http.MethodGet)
+	apiV1.Handle("/tokens/{id}",
+		HandlerFunc(HandlerTokenDetail)).Methods(http.MethodGet)
+
+	apiV1.Handle("/register",
+		HandlerFunc(HandlerUserRegister)).Methods(http.MethodPost)
+	apiV1.Handle("/login",
+		HandlerFunc(HandlerUserLogin)).Methods(http.MethodPost)
 
 	return r
 

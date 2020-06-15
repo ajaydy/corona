@@ -44,6 +44,7 @@ func ErrorResponse(w http.ResponseWriter, message string, status int) {
 }
 
 const (
-	InternalServerError = "Internal Server Error"
-	BadRequestMessage   = "Bad Request"
+	InternalServerError   = "Internal Server Error"
+	BadRequestMessage     = "Bad Request"
+	IncorrectEmailMessage = "Incorrect Email"
 )
